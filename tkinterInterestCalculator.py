@@ -1,25 +1,41 @@
 from tkinter import *
+from tkinter import messagebox
 
 class Window(Frame):
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
+        self.type = IntVar()
         self.init_window()
 
-    def callbackAmountEntry(self, event):
+    def callbackAmountEntryIn(self, event):
         self.amountEntry.selection_range(0, END)
-    def callbackInterestEntry(self, event):
+        self.amountEntry.config(bg = "#DCDCDC")
+    def callbackAmountEntryOut(self, event):
+        self.amountEntry.config({"background": "white"})
+
+    def callbackInterestEntryIn(self, event):
         self.interestEntry.selection_range(0, END)
-    def callbackDurationYearsEntry(self, event):
+        self.interestEntry.config(bg = "#DCDCDC")
+    def callbackInterestEntryOut(self, event):
+        self.interestEntry.config({"background": "white"})
+
+    def callbackDurationYearsEntryIn(self, event):
         self.durationYearsEntry.selection_range(0, END)
-    def callbackDurationMonthsEntry(self, event):
+        self.durationYearsEntry.config(bg = "#DCDCDC")
+    def callbackDurationYearsEntryOut(self, event):
+        self.durationYearsEntry.config({"background": "white"})
+
+    def callbackDurationMonthsEntryIn(self, event):
         self.durationMonthsEntry.selection_range(0, END)
+        self.durationMonthsEntry.config(bg = "#DCDCDC")
+    def callbackDurationMonthsEntryOut(self, event):
+        self.durationMonthsEntry.config({"background": "white"})
 
     def init_window(self):
         #Window Title
         self.master.title("Interest Calculation")
-        #self.pack(fill = BOTH, expand = 1)
 
         #MenuBar
         menuMain = Menu(self.master)
@@ -32,84 +48,91 @@ class Window(Frame):
         menuMain.add_cascade(label="Edit", menu=edit)
 
         #Labels
-        title = Label(text = "Interest Calculator",justify=CENTER, font=(16))
+        title = Label(text = "Interest Calculator",justify=CENTER, font=(16), bg = "#adcbe3",width = 16)
         #myLabel.grid(column=1, row=5)
         title.grid(ipady= 10,sticky=W+E,columnspan = 2)
-        initialAmount = Label(text = "Initial Amount: ")
-        initialAmount.grid(row=2, column=0, sticky=W,ipady= 5)
-        interestRate = Label(text = "Interest Rate %: ")
-        interestRate.grid(row=3, column=0, sticky=W,ipady= 5)
-        lengthYears = Label(text = "Duration (Years): ")
-        lengthYears.grid(row=4, column=0, sticky=W,ipady= 5)
-        lengthMonths = Label(text = "Duration (Months): ")
-        lengthMonths.grid(row=5, column=0, sticky=W,ipady= 5)
-        finalTotal = Label(text = "Final amount: ")
-        finalTotal.grid(row=6, column=0, sticky=W,ipady= 5)
+        initialAmount = Label(text = "Initial Amount: ",bg="#e7eff6")
+        initialAmount.grid(row=2, column=0, sticky=E,ipady= 5, ipadx = 5)
+        interestRate = Label(text = "Interest Rate %: ",bg="#e7eff6")
+        interestRate.grid(row=3, column=0, sticky=E,ipady= 5, ipadx = 5)
+        lengthYears = Label(text = "Duration (Years): ",bg="#e7eff6")
+        lengthYears.grid(row=4, column=0, sticky=E,ipady= 5, ipadx = 5)
+        lengthMonths = Label(text = "Duration (Months): ",bg="#e7eff6")
+        lengthMonths.grid(row=5, column=0, sticky=E,ipady= 5, ipadx = 5)
+        finalTotal = Label(text = "Final amount: ",bg="#e7eff6")
+        finalTotal.grid(row=6, column=0, sticky=E,ipady= 5, ipadx = 5)
 
         #Entries
-        self.amountEntry = Entry(self.master)
-        self.amountEntry.grid(row=2,column=1)
+        self.amountEntry = Entry(self.master, width=19)
+        self.amountEntry.grid(row=2,column=1, sticky=W)
         self.amountEntry.insert(0, "0")
-        self.amountEntry.bind("<FocusIn>", self.callbackAmountEntry)
+        self.amountEntry.bind("<FocusIn>", self.callbackAmountEntryIn)
+        self.amountEntry.bind("<FocusOut>", self.callbackAmountEntryOut)
 
-        self.interestEntry = Entry(self.master)
-        self.interestEntry.grid(row=3,column=1)
+        self.interestEntry = Entry(self.master, width=19)
+        self.interestEntry.grid(row=3,column=1, sticky=W)
         self.interestEntry.insert(0, "0")
-        self.interestEntry.bind("<FocusIn>", self.callbackInterestEntry)
+        self.interestEntry.bind("<FocusIn>", self.callbackInterestEntryIn)
+        self.interestEntry.bind("<FocusOut>", self.callbackInterestEntryOut)
 
-        self.durationYearsEntry = Entry(self.master)
-        self.durationYearsEntry.grid(row=4,column=1)
+        self.durationYearsEntry = Entry(self.master, width=19)
+        self.durationYearsEntry.grid(row=4,column=1, sticky=W)
         self.durationYearsEntry.insert(0, "0")
-        self.durationYearsEntry.bind("<FocusIn>", self.callbackDurationYearsEntry)
+        self.durationYearsEntry.bind("<FocusIn>", self.callbackDurationYearsEntryIn)
+        self.durationYearsEntry.bind("<FocusOut>", self.callbackDurationYearsEntryOut)
 
-        self.durationMonthsEntry = Entry(self.master)
-        self.durationMonthsEntry.grid(row=5,column=1)
+        self.durationMonthsEntry = Entry(self.master, width=19)
+        self.durationMonthsEntry.grid(row=5,column=1, sticky=W)
         self.durationMonthsEntry.insert(0, "0")
-        self.durationMonthsEntry.bind("<FocusIn>", self.callbackDurationMonthsEntry)
+        self.durationMonthsEntry.bind("<FocusIn>", self.callbackDurationMonthsEntryIn)
+        self.durationMonthsEntry.bind("<FocusOut>", self.callbackDurationMonthsEntryOut)
 
-        self.finalEntry = Entry(self.master)
-        self.finalEntry.grid(row=6,column=1)
+        self.finalEntry = Entry(self.master, width=19)
+        self.finalEntry.grid(row=6,column=1, sticky=W)
         self.finalEntry.insert(0, "0")
+        self.finalEntry.config(state="readonly")
 
-        self.calculateMonthlyButton = Button(text="Calculate monthly accruement: ", command=self.calculateMonthly)
-        self.calculateMonthlyButton.grid(row=7,column=0,padx= 5,pady= 5)
-        self.calculateYearlyButton = Button(text="Calculate yearly accruement: ", command=self.calculateYearly)
-        self.calculateYearlyButton.grid(row=7,column=1,padx= 5,pady= 5)
+        self.calculateMonthlyToggle = Radiobutton(text = "Monthly accruement", variable = self.type, value = 1, indicatoron = 0)
+        self.calculateMonthlyToggle.grid(row=7,column=0,padx= 10,pady= 5)
+        self.calculateYearlyToggle = Radiobutton(text = "Yearly accruement", variable = self.type, value = 2, indicatoron = 0)
+        self.calculateYearlyToggle.grid(row=7,column=1,padx= 10,pady= 5, sticky = E)
+
+        self.calculateButton = Button(text = "Calculate", command = self.calculateInterest)
+        self.calculateButton.grid(padx = 10, row=8, column =0, sticky = W)
 
 
         #Quit button
         quitButton = Button(text="Quit the app",command=self.client_exit)
-        quitButton.grid(row = 8, sticky=W,padx= 5,pady= 10)
+        quitButton.grid(row = 8, column = 1, sticky = E, padx= 10,pady= 10)
 
     #Test function
-    def calculateMonthly(self):
-        amountEntry_variable = int(self.amountEntry.get())
-        interestEntry_variable = int(self.interestEntry.get())
-        durationYearsEntry_variable = int(self.durationYearsEntry.get())
-        durationMonthsEntry_variable = int(self.durationMonthsEntry.get())
+    def calculateInterest(self):
+        try:
+            amountEntry_variable = int(self.amountEntry.get())
+            interestEntry_variable = int(self.interestEntry.get())
+            durationYearsEntry_variable = int(self.durationYearsEntry.get())
+            durationMonthsEntry_variable = int(self.durationMonthsEntry.get())
+        except ValueError:
+            messagebox.showerror("Error", "There is an invalid variable in your input!")
+            return
+
         finalTally = amountEntry_variable
 
-        totalMonthsDuration = durationYearsEntry_variable*12 + durationMonthsEntry_variable
-        for x in range(totalMonthsDuration):
-            finalTally = finalTally + finalTally*(interestEntry_variable/100)/12
+        if self.type.get() == 1:
+            totalMonthsDuration = durationYearsEntry_variable*12 + durationMonthsEntry_variable
+            for x in range(totalMonthsDuration):
+                finalTally = finalTally + finalTally*(interestEntry_variable/100)/12
+        elif self.type.get() == 2:
+            for x in range(durationYearsEntry_variable):
+                finalTally = finalTally + finalTally*(interestEntry_variable/100)
+            finalTally = finalTally + amountEntry_variable*(interestEntry_variable/100)*durationMonthsEntry_variable/12
+        else:
+            messagebox.showerror("Error", "You didn't select an monthly or yearly interest accruement!")
 
+        self.finalEntry.config(state="normal")
         self.finalEntry.delete(0,"end")
         self.finalEntry.insert(0, finalTally)
-
-    def calculateYearly(self):
-        amountEntry_variable = int(self.amountEntry.get())
-        interestEntry_variable = int(self.interestEntry.get())
-        durationYearsEntry_variable = int(self.durationYearsEntry.get())
-        durationMonthsEntry_variable = int(self.durationMonthsEntry.get())
-        finalTally = amountEntry_variable
-
-        for x in range(durationYearsEntry_variable):
-            finalTally = finalTally + finalTally*(interestEntry_variable/100)
-
-        finalTally = finalTally + amountEntry_variable*(interestEntry_variable/100)*durationMonthsEntry_variable/12
-
-        self.finalEntry.delete(0,"end")
-        self.finalEntry.insert(0, finalTally)
+        self.finalEntry.config(state="readonly")
 
     #Reset Values
     def reset_values(self):
@@ -129,7 +152,8 @@ class Window(Frame):
         exit()
 
 root = Tk()
-root.geometry("400x300")
+root.geometry("270x300")
 root.resizable(width=False, height=False)
+root.config(background="#e7eff6")
 app = Window(root)
 root.mainloop()
