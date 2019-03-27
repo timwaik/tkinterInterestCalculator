@@ -1,6 +1,10 @@
 # tkinterInterestCalculator
 
+## Summary
+
 A simple Python 3 program built with tkinter, used to calculate the interest accrued from an initial amount.
+
+### Functionality
 
 A menu bar with reset values and quit functionality, as well as a help guide, which opens up a new window.
 
