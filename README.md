@@ -6,4 +6,4 @@ A menu bar with reset values and quit functionality, as well as a help guide, wh
 
 Interest can be accrued monthly or yearly, and the duration can be calculated in a duration of years and months.
 
-Error messages will display for invalid input
+Error messages will display for invalid input.
