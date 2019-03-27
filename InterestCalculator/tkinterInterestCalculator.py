@@ -167,7 +167,13 @@ class Window(Frame):
 
 
 root = Tk()
-root.geometry("270x300")
+w = 270
+h = 300
+ws = root.winfo_screenwidth()
+hs = root.winfo_screenheight()
+x = (ws/2) - (w/2)
+y = (hs/2) - (h/2)
+root.geometry("%dx%d+%d+%d" % (w, h, x, y))
 root.resizable(width=False, height=False)
 root.config(background="#e7eff6")
 app = Window(root)
